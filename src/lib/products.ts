@@ -90,7 +90,6 @@ export const seasonalProducts: Product[] = [
     category: 'ovo-especial',
     sizes: [
       { label: '250g', price: 45.00 },
-      { label: '500g', price: 75.00 },
     ],
     flavors: ['Ninho com Nutella', 'Ferrero Rocher', 'Óreo'],
     weight: '250g',
