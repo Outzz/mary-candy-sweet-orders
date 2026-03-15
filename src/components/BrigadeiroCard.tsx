@@ -20,8 +20,15 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
   });
 
   const totalSlots = selectedPackage ? getPackageQuantity(selectedPackage.label) : 0;
+  const maxFlavors = selectedPackage && product.maxFlavors
+    ? product.maxFlavors[selectedPackage.label] || Infinity
+    : Infinity;
   const usedSlots = useMemo(
     () => Object.values(flavorCounts).reduce((s, v) => s + v, 0),
+    [flavorCounts]
+  );
+  const selectedFlavorCount = useMemo(
+    () => Object.values(flavorCounts).filter((v) => v > 0).length,
     [flavorCounts]
   );
   const remaining = totalSlots - usedSlots;
