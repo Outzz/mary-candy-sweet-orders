@@ -120,7 +120,7 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
       <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
           <span className="font-body text-xs font-semibold text-foreground/70">
-            Escolha os sabores
+            Escolha os sabores ({maxFlavors === Infinity ? '∞' : `máx. ${maxFlavors}`} sabores)
           </span>
           <span className="font-body text-xs text-muted-foreground tabular-nums">
             {usedSlots}/{totalSlots} selecionados
