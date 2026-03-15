@@ -15,6 +15,7 @@ export interface Product {
   seasonal?: boolean;
   badge?: string;
   image?: string;
+  maxFlavors?: Record<string, number>;
 }
 
 export const products: Product[] = [
