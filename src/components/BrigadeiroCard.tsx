@@ -38,6 +38,11 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
       const newVal = Math.max(0, (prev[flavor] || 0) + delta);
       const otherUsed = usedSlots - (prev[flavor] || 0);
       if (newVal + otherUsed > totalSlots) return prev;
+      // Check max flavors limit when adding a new flavor
+      if (delta > 0 && prev[flavor] === 0) {
+        const currentFlavorCount = Object.values(prev).filter((v) => v > 0).length;
+        if (currentFlavorCount >= maxFlavors) return prev;
+      }
       return { ...prev, [flavor]: newVal };
     });
   };
