@@ -64,9 +64,9 @@ export function CartSidebar() {
                           {item.flavorBreakdown && Object.keys(item.flavorBreakdown).length > 0 && (
                             <div className="mt-1">
                               {Object.entries(item.flavorBreakdown).map(([flavor, qty]) =>
-                                qty > 0 ? (
+                                (qty as number) > 0 ? (
                                   <span key={flavor} className="text-muted-foreground font-body text-xs block">
-                                    {qty}x {flavor}
+                                    {qty as number}x {flavor}
                                   </span>
                                 ) : null
                               )}

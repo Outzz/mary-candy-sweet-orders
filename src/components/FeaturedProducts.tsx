@@ -56,9 +56,9 @@ export function FeaturedProducts() {
 
               <div className="font-body font-semibold text-primary text-lg">
                 {product.sizes
-                  ? `A partir de ${formatCurrency(product.sizes[0].price)}`
+                  ? formatCurrency(product.sizes[0].price)
                   : product.packages
-                  ? `A partir de ${formatCurrency(product.packages[0].price)}`
+                  ? formatCurrency(product.packages[0].price)
                   : ''}
               </div>
             </motion.div>

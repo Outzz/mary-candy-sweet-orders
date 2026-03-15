@@ -155,7 +155,7 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
               </span>
               <button
                 onClick={() => updateFlavor(flavor, 1)}
-                disabled={remaining === 0}
+                disabled={remaining === 0 || (flavorCounts[flavor] === 0 && selectedFlavorCount >= maxFlavors)}
                 className="w-7 h-7 rounded-full bg-card flex items-center justify-center hover:bg-secondary transition-colors disabled:opacity-30"
               >
                 <Plus className="w-3 h-3" />
