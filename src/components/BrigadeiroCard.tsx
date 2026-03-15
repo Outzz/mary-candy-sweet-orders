@@ -20,8 +20,15 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
   });
 
   const totalSlots = selectedPackage ? getPackageQuantity(selectedPackage.label) : 0;
+  const maxFlavors = selectedPackage && product.maxFlavors
+    ? product.maxFlavors[selectedPackage.label] || Infinity
+    : Infinity;
   const usedSlots = useMemo(
     () => Object.values(flavorCounts).reduce((s, v) => s + v, 0),
+    [flavorCounts]
+  );
+  const selectedFlavorCount = useMemo(
+    () => Object.values(flavorCounts).filter((v) => v > 0).length,
     [flavorCounts]
   );
   const remaining = totalSlots - usedSlots;
@@ -31,6 +38,11 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
       const newVal = Math.max(0, (prev[flavor] || 0) + delta);
       const otherUsed = usedSlots - (prev[flavor] || 0);
       if (newVal + otherUsed > totalSlots) return prev;
+      // Check max flavors limit when adding a new flavor
+      if (delta > 0 && prev[flavor] === 0) {
+        const currentFlavorCount = Object.values(prev).filter((v) => v > 0).length;
+        if (currentFlavorCount >= maxFlavors) return prev;
+      }
       return { ...prev, [flavor]: newVal };
     });
   };
@@ -108,7 +120,7 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
       <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
           <span className="font-body text-xs font-semibold text-foreground/70">
-            Escolha os sabores
+            Escolha os sabores ({maxFlavors === Infinity ? '∞' : `máx. ${maxFlavors}`} sabores)
           </span>
           <span className="font-body text-xs text-muted-foreground tabular-nums">
             {usedSlots}/{totalSlots} selecionados
@@ -143,7 +155,7 @@ export function BrigadeiroCard({ product, delay = 0 }: BrigadeiroCardProps) {
               </span>
               <button
                 onClick={() => updateFlavor(flavor, 1)}
-                disabled={remaining === 0}
+                disabled={remaining === 0 || (flavorCounts[flavor] === 0 && selectedFlavorCount >= maxFlavors)}
                 className="w-7 h-7 rounded-full bg-card flex items-center justify-center hover:bg-secondary transition-colors disabled:opacity-30"
               >
                 <Plus className="w-3 h-3" />

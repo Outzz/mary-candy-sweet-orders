@@ -15,6 +15,7 @@ export interface Product {
   seasonal?: boolean;
   badge?: string;
   image?: string;
+  maxFlavors?: Record<string, number>;
 }
 
 export const products: Product[] = [
@@ -67,6 +68,12 @@ export const products: Product[] = [
     flavors: ['Tradicional', 'Beijinho', 'Morango', 'Prestígio', 'Chocoball', 'Confete', 'Ninho', 'Churros', 'Oreo', 'Casadinho'],
     weight: '15g cada',
     badge: 'Mais pedido',
+    maxFlavors: {
+      '25 unidades': 2,
+      '50 unidades': 2,
+      '100 unidades': 4,
+      '150 unidades': 4,
+    },
   },
 ];
 
@@ -78,7 +85,6 @@ export const seasonalProducts: Product[] = [
     category: 'ovo-tradicional',
     sizes: [
       { label: '250g', price: 35.00 },
-      { label: '500g', price: 60.00 },
     ],
     flavors: ['Brigadeiro', 'Ninho', 'Dois Amores', 'Beijinho', 'Moranguinho', 'Mousse de Limão', 'Mousse de Maracujá'],
     seasonal: true,
@@ -91,7 +97,6 @@ export const seasonalProducts: Product[] = [
     category: 'ovo-especial',
     sizes: [
       { label: '250g', price: 45.00 },
-      { label: '500g', price: 75.00 },
     ],
     flavors: ['Ninho com Nutella', 'Ferrero Rocher', 'Óreo'],
     weight: '250g',
