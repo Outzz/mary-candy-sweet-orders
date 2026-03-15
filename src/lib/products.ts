@@ -78,7 +78,6 @@ export const seasonalProducts: Product[] = [
     category: 'ovo-tradicional',
     sizes: [
       { label: '250g', price: 35.00 },
-      { label: '500g', price: 60.00 },
     ],
     flavors: ['Brigadeiro', 'Ninho', 'Dois Amores', 'Beijinho', 'Moranguinho', 'Mousse de Limão', 'Mousse de Maracujá'],
     seasonal: true,
