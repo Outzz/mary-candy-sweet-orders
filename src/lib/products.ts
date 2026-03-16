@@ -97,6 +97,7 @@ export const seasonalProducts: Product[] = [
     flavors: ['Brigadeiro', 'Ninho', 'Dois Amores', 'Beijinho', 'Moranguinho', 'Mousse de Limão', 'Mousse de Maracujá'],
     seasonal: true,
     badge: 'Sazonal',
+    image: ovoColherImg,
   },
   {
     id: 'ovo-especial',
