@@ -44,9 +44,15 @@ export function SeasonalSection() {
               transition={{ delay: i * 0.1 }}
               className="bg-card rounded-3xl p-6 shadow-candy hover:shadow-candy-hover hover:scale-[1.02] transition-all duration-300"
             >
-              <div className="w-20 h-20 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-5">
-                {seasonalIcons[product.category] || <Egg className="w-10 h-10 text-primary" strokeWidth={1.5} />}
-              </div>
+              {product.image ? (
+                <div className="w-20 h-20 rounded-2xl overflow-hidden mx-auto mb-5">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className="w-20 h-20 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-5">
+                  {seasonalIcons[product.category] || <Egg className="w-10 h-10 text-primary" strokeWidth={1.5} />}
+                </div>
+              )}
 
               <span className="inline-block px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-body font-semibold mb-3">
                 {product.badge}

@@ -45,9 +45,15 @@ export function FeaturedProducts() {
               onClick={() => setSelectedProduct(product)}
               className="group bg-card rounded-3xl p-5 shadow-candy hover:shadow-candy-hover hover:scale-[1.02] transition-all duration-300 cursor-pointer"
             >
-              <div className="w-20 h-20 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-4 group-hover:scale-105 transition-transform">
-                {categoryIcons[product.category] || <Cake className="w-10 h-10 text-primary" strokeWidth={1.5} />}
-              </div>
+              {product.image ? (
+                <div className="w-20 h-20 rounded-2xl overflow-hidden mx-auto mb-4 group-hover:scale-105 transition-transform">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className="w-20 h-20 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-4 group-hover:scale-105 transition-transform">
+                  {categoryIcons[product.category] || <Cake className="w-10 h-10 text-primary" strokeWidth={1.5} />}
+                </div>
+              )}
 
               {product.badge && (
                 <div className="text-center mb-2">
