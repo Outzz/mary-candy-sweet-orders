@@ -18,6 +18,11 @@ export interface Product {
   maxFlavors?: Record<string, number>;
 }
 
+import travessaUvaImg from '@/assets/travessa-uva.png';
+import mousseMorangoImg from '@/assets/mousse-morango.png';
+import brigadeirosImg from '@/assets/brigadeiros.jpeg';
+import ovoColherImg from '@/assets/ovo-colher.jpeg';
+
 export const products: Product[] = [
   {
     id: 'travessa-frutas',
@@ -30,6 +35,7 @@ export const products: Product[] = [
     ],
     flavors: ['Morango', 'Uva'],
     badge: 'Mais pedido',
+    image: travessaUvaImg,
   },
   {
     id: 'mousse-tradicional',
@@ -41,6 +47,7 @@ export const products: Product[] = [
       { label: 'G', price: 45.00 },
     ],
     flavors: ['Limão', 'Maracujá', 'Morango'],
+    image: mousseMorangoImg,
   },
   {
     id: 'mousse-trufado',
@@ -68,6 +75,7 @@ export const products: Product[] = [
     flavors: ['Tradicional', 'Beijinho', 'Morango', 'Prestígio', 'Chocoball', 'Confete', 'Ninho', 'Churros', 'Oreo', 'Casadinho'],
     weight: '15g cada',
     badge: 'Mais pedido',
+    image: brigadeirosImg,
     maxFlavors: {
       '25 unidades': 2,
       '50 unidades': 2,
@@ -89,6 +97,7 @@ export const seasonalProducts: Product[] = [
     flavors: ['Brigadeiro', 'Ninho', 'Dois Amores', 'Beijinho', 'Moranguinho', 'Mousse de Limão', 'Mousse de Maracujá'],
     seasonal: true,
     badge: 'Sazonal',
+    image: ovoColherImg,
   },
   {
     id: 'ovo-especial',
