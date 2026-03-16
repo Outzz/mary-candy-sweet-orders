@@ -37,5 +37,5 @@ export function getWhatsAppUrl(items: CartItem[]): string {
 }
 
 export function getWhatsAppDirectUrl(): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá Mary Candy! Gostaria de saber mais sobre os doces. 🍬')}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá Mary Candy! Gostaria de saber mais sobre os doces. 🥰')}`;
 }
