@@ -75,6 +75,7 @@ export const products: Product[] = [
     flavors: ['Tradicional', 'Beijinho', 'Morango', 'Prestígio', 'Chocoball', 'Confete', 'Ninho', 'Churros', 'Oreo', 'Casadinho'],
     weight: '15g cada',
     badge: 'Mais pedido',
+    image: brigadeirosImg,
     maxFlavors: {
       '25 unidades': 2,
       '50 unidades': 2,
