@@ -18,6 +18,11 @@ export interface Product {
   maxFlavors?: Record<string, number>;
 }
 
+import travessaUvaImg from '@/assets/travessa-uva.png';
+import mousseMorangoImg from '@/assets/mousse-morango.png';
+import brigadeirosImg from '@/assets/brigadeiros.jpeg';
+import ovoColherImg from '@/assets/ovo-colher.jpeg';
+
 export const products: Product[] = [
   {
     id: 'travessa-frutas',
@@ -30,6 +35,7 @@ export const products: Product[] = [
     ],
     flavors: ['Morango', 'Uva'],
     badge: 'Mais pedido',
+    image: travessaUvaImg,
   },
   {
     id: 'mousse-tradicional',
@@ -41,6 +47,7 @@ export const products: Product[] = [
       { label: 'G', price: 45.00 },
     ],
     flavors: ['Limão', 'Maracujá', 'Morango'],
+    image: mousseMorangoImg,
   },
   {
     id: 'mousse-trufado',
