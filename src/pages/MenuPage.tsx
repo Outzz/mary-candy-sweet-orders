@@ -1,18 +1,19 @@
+import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { MobileCartButton } from '@/components/MobileCartButton';
 import { CartSidebar } from '@/components/CartSidebar';
 import { ProductCard } from '@/components/ProductCard';
-import { BrigadeiroCard } from '@/components/BrigadeiroCard';
-import { products, seasonalProducts } from '@/lib/products';
+import { ProductDetailModal } from '@/components/ProductDetailModal';
+import { products, seasonalProducts, Product } from '@/lib/products';
 import { isSeasonal } from '@/lib/seasonal';
 import { motion } from 'framer-motion';
 
 const MenuPage = () => {
   const showSeasonal = isSeasonal();
-  const brigadeiro = products.find((p) => p.category === 'brigadeiro')!;
-  const regularProducts = products.filter((p) => p.category !== 'brigadeiro');
+  const allProducts = products;
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -27,20 +28,20 @@ const MenuPage = () => {
             Nosso <span className="text-primary italic">Cardápio</span>
           </h1>
           <p className="mt-3 text-muted-foreground font-body text-lg">
-            Escolha seus sabores preferidos e monte seu pedido
+            Clique em um produto para ver detalhes e fazer seu pedido
           </p>
         </motion.div>
 
-        {/* Regular products */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {regularProducts.map((product, i) => (
-            <ProductCard key={product.id} product={product} delay={i * 0.1} />
+        {/* All products grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+          {allProducts.map((product, i) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              delay={i * 0.08}
+              onClick={() => setSelectedProduct(product)}
+            />
           ))}
-        </div>
-
-        {/* Brigadeiros - special card */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <BrigadeiroCard product={brigadeiro} delay={0.2} />
         </div>
 
         {/* Seasonal products */}
@@ -60,9 +61,14 @@ const MenuPage = () => {
               </h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {seasonalProducts.map((product, i) => (
-                <ProductCard key={product.id} product={product} delay={i * 0.1} />
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  delay={i * 0.08}
+                  onClick={() => setSelectedProduct(product)}
+                />
               ))}
             </div>
           </>
@@ -72,6 +78,12 @@ const MenuPage = () => {
       <WhatsAppButton />
       <MobileCartButton />
       <CartSidebar />
+
+      <ProductDetailModal
+        product={selectedProduct}
+        isOpen={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
     </div>
   );
 };
