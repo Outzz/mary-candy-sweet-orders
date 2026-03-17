@@ -92,9 +92,15 @@ function RegularContent({ product, onClose }: { product: Product; onClose: () =>
   return (
     <div className="p-6 pt-8">
       {/* Hero area */}
-      <div className="w-32 h-32 rounded-3xl bg-secondary flex items-center justify-center mx-auto mb-6">
-        {categoryIcons[product.category] || <Cake className="w-16 h-16 text-primary" strokeWidth={1.5} />}
-      </div>
+      {product.image ? (
+        <div className="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-6">
+          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+        </div>
+      ) : (
+        <div className="w-32 h-32 rounded-3xl bg-secondary flex items-center justify-center mx-auto mb-6">
+          {categoryIcons[product.category] || <Cake className="w-16 h-16 text-primary" strokeWidth={1.5} />}
+        </div>
+      )}
 
       {product.badge && (
         <div className="text-center mb-3">
