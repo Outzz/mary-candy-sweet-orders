@@ -100,6 +100,9 @@ export const seasonalProducts: Product[] = [
     seasonal: true,
     badge: 'Sazonal',
     image: ovoColherImg,
+    flavorImages: {
+      'Mousse de Limão': ovoColherLimaoImg,
+    },
   },
   {
     id: 'ovo-especial',
