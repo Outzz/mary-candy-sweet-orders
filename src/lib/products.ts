@@ -15,6 +15,7 @@ export interface Product {
   seasonal?: boolean;
   badge?: string;
   image?: string;
+  flavorImages?: Record<string, string>;
   maxFlavors?: Record<string, number>;
 }
 
@@ -22,6 +23,7 @@ import travessaUvaImg from '@/assets/travessa-uva.png';
 import mousseMorangoImg from '@/assets/mousse-morango.png';
 import brigadeirosImg from '@/assets/brigadeiros.jpeg';
 import ovoColherImg from '@/assets/ovo-colher.jpeg';
+import ovoColherLimaoImg from '@/assets/ovo-colher-limao.png';
 
 export const products: Product[] = [
   {
@@ -98,6 +100,9 @@ export const seasonalProducts: Product[] = [
     seasonal: true,
     badge: 'Sazonal',
     image: ovoColherImg,
+    flavorImages: {
+      'Mousse de Limão': ovoColherLimaoImg,
+    },
   },
   {
     id: 'ovo-especial',
