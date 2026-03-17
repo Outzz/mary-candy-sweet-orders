@@ -15,7 +15,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 
 export function FeaturedProducts() {
   const featured = products.slice(0, 4);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const navigate = useNavigate();
 
   return (
     <section className="py-20 bg-background">
