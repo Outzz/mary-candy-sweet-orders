@@ -113,6 +113,7 @@ export const seasonalProducts: Product[] = [
       { label: '250g', price: 45.00 },
     ],
     flavors: ['Ninho com Nutella', 'Ferrero Rocher', 'Óreo'],
+    image: ovoColherOreoImg,
     weight: '250g',
     seasonal: true,
     badge: 'Especial',
