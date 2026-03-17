@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { products, Product } from '@/lib/products';
+import { products } from '@/lib/products';
 import { formatCurrency } from '@/lib/whatsapp';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Cake, Cherry, Cookie, IceCreamCone } from 'lucide-react';
-import { ProductDetailModal } from '@/components/ProductDetailModal';
 
 const categoryIcons: Record<string, React.ReactNode> = {
   travessa: <Cherry className="w-10 h-10 text-primary" strokeWidth={1.5} />,
