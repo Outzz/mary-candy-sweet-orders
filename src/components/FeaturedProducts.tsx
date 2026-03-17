@@ -42,7 +42,7 @@ export function FeaturedProducts() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              onClick={() => setSelectedProduct(product)}
+              onClick={() => navigate('/cardapio', { state: { openProductId: product.id } })}
               className="group bg-card rounded-3xl p-5 shadow-candy hover:shadow-candy-hover hover:scale-[1.02] transition-all duration-300 cursor-pointer"
             >
               {product.image ? (
