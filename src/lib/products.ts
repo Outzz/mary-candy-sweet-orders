@@ -15,6 +15,7 @@ export interface Product {
   seasonal?: boolean;
   badge?: string;
   image?: string;
+  flavorImages?: Record<string, string>;
   maxFlavors?: Record<string, number>;
 }
 
