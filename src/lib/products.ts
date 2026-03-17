@@ -24,6 +24,7 @@ import mousseMorangoImg from '@/assets/mousse-morango.png';
 import brigadeirosImg from '@/assets/brigadeiros.jpeg';
 import ovoColherImg from '@/assets/ovo-colher.jpeg';
 import ovoColherLimaoImg from '@/assets/ovo-colher-limao.png';
+import ovoColherOreoImg from '@/assets/ovo-colher-oreo.png';
 
 export const products: Product[] = [
   {
@@ -113,6 +114,7 @@ export const seasonalProducts: Product[] = [
       { label: '250g', price: 45.00 },
     ],
     flavors: ['Ninho com Nutella', 'Ferrero Rocher', 'Óreo'],
+    image: ovoColherOreoImg,
     weight: '250g',
     seasonal: true,
     badge: 'Especial',
