@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { products, Product } from '@/lib/products';
+import { products } from '@/lib/products';
 import { formatCurrency } from '@/lib/whatsapp';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Cake, Cherry, Cookie, IceCreamCone } from 'lucide-react';
-import { ProductDetailModal } from '@/components/ProductDetailModal';
 
 const categoryIcons: Record<string, React.ReactNode> = {
   travessa: <Cherry className="w-10 h-10 text-primary" strokeWidth={1.5} />,
@@ -15,7 +13,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 
 export function FeaturedProducts() {
   const featured = products.slice(0, 4);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const navigate = useNavigate();
 
   return (
     <section className="py-20 bg-background">
@@ -42,7 +40,7 @@ export function FeaturedProducts() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              onClick={() => setSelectedProduct(product)}
+              onClick={() => navigate('/cardapio', { state: { openProductId: product.id } })}
               className="group bg-card rounded-3xl p-5 shadow-candy hover:shadow-candy-hover hover:scale-[1.02] transition-all duration-300 cursor-pointer"
             >
               {product.image ? (
@@ -87,11 +85,6 @@ export function FeaturedProducts() {
         </div>
       </div>
 
-      <ProductDetailModal
-        product={selectedProduct}
-        isOpen={!!selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-      />
     </section>
   );
 }

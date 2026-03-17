@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
@@ -13,7 +14,19 @@ import { motion } from 'framer-motion';
 const MenuPage = () => {
   const showSeasonal = isSeasonal();
   const allProducts = products;
+  const location = useLocation();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    const openProductId = (location.state as any)?.openProductId;
+    if (openProductId) {
+      const all = [...products, ...seasonalProducts];
+      const found = all.find((p) => p.id === openProductId);
+      if (found) setSelectedProduct(found);
+      // Clear state so refresh doesn't re-open
+      window.history.replaceState({}, '');
+    }
+  }, [location.state]);
 
   return (
     <div className="min-h-screen bg-background">
