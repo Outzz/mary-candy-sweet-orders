@@ -87,11 +87,6 @@ export function FeaturedProducts() {
         </div>
       </div>
 
-      <ProductDetailModal
-        product={selectedProduct}
-        isOpen={!!selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-      />
     </section>
   );
 }
