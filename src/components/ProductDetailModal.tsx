@@ -89,12 +89,25 @@ function RegularContent({ product, onClose }: { product: Product; onClose: () =>
     onClose();
   };
 
+  const currentImage = product.flavorImages?.[selectedFlavor] || product.image;
+
   return (
     <div className="p-6 pt-8">
       {/* Hero area */}
-      {product.image ? (
+      {currentImage ? (
         <div className="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-6">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentImage}
+              src={currentImage}
+              alt={product.name}
+              className="w-full h-full object-cover"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.25 }}
+            />
+          </AnimatePresence>
         </div>
       ) : (
         <div className="w-32 h-32 rounded-3xl bg-secondary flex items-center justify-center mx-auto mb-6">
