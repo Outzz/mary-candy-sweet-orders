@@ -23,6 +23,7 @@ import travessaUvaImg from '@/assets/travessa-uva.png';
 import mousseMorangoImg from '@/assets/mousse-morango.png';
 import brigadeirosImg from '@/assets/brigadeiros.jpeg';
 import ovoColherImg from '@/assets/ovo-colher.jpeg';
+import ovoColherLimaoImg from '@/assets/ovo-colher-limao.png';
 import ovoColherOreoImg from '@/assets/ovo-colher-oreo.png';
 
 export const products: Product[] = [
