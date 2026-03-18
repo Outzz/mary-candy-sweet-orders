@@ -26,6 +26,7 @@ import ovoColherImg from '@/assets/ovo-colher.jpeg';
 import ovoColherLimaoImg from '@/assets/ovo-colher-limao.png';
 import ovoColherOreoImg from '@/assets/ovo-colher-oreo.png';
 import mousseTrufadoImg from '@/assets/mousse-trufado.png';
+import kitDegustacaoImg from '@/assets/kit-degustacao.jpeg';
 
 export const products: Product[] = [
   {
@@ -130,6 +131,7 @@ export const seasonalProducts: Product[] = [
     flavors: ['Sortidos'],
     seasonal: true,
     badge: 'Oferta',
+    image: kitDegustacaoImg,
   },
 ];
 
