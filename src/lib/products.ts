@@ -114,7 +114,7 @@ export const seasonalProducts: Product[] = [
     description: 'Ovos especiais com recheios premium. 250g de pura felicidade!',
     category: 'ovo-especial',
     sizes: [
-      { label: '250g', price: 45.00 },
+      { label: '250g', price: 41.50 },
     ],
     flavors: ['Ninho com Nutella', 'Ferrero Rocher', 'Óreo'],
     image: ovoColherOreoImg,
