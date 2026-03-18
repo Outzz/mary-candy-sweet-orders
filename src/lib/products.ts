@@ -64,6 +64,7 @@ export const products: Product[] = [
     ],
     flavors: ['Limão', 'Maracujá', 'Morango'],
     badge: 'Premium',
+    image: mousseTrufadoImg,
   },
   {
     id: 'brigadeiros',
