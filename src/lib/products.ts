@@ -25,6 +25,7 @@ import brigadeirosImg from '@/assets/brigadeiros.jpeg';
 import ovoColherImg from '@/assets/ovo-colher.jpeg';
 import ovoColherLimaoImg from '@/assets/ovo-colher-limao.png';
 import ovoColherOreoImg from '@/assets/ovo-colher-oreo.png';
+import mousseTrufadoImg from '@/assets/mousse-trufado.png';
 
 export const products: Product[] = [
   {
