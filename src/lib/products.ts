@@ -131,6 +131,7 @@ export const seasonalProducts: Product[] = [
     flavors: ['Sortidos'],
     seasonal: true,
     badge: 'Oferta',
+    image: kitDegustacaoImg,
   },
 ];
 
