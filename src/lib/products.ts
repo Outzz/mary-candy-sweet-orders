@@ -98,7 +98,7 @@ export const seasonalProducts: Product[] = [
     description: 'Ovo de Páscoa artesanal recheado com sabores irresistíveis. Edição limitada!',
     category: 'ovo-tradicional',
     sizes: [
-      { label: '250g', price: 35.00 },
+      { label: '250g', price: 39.50 },
     ],
     flavors: ['Brigadeiro', 'Ninho', 'Dois Amores', 'Beijinho', 'Moranguinho', 'Mousse de Limão', 'Mousse de Maracujá'],
     seasonal: true,
