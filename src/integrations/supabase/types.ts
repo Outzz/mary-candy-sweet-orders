@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      products: {
+        Row: {
+          badge: string | null
+          category: string
+          created_at: string | null
+          description: string | null
+          flavor_images: Json | null
+          flavors: Json
+          id: string
+          image_url: string | null
+          max_flavors: Json | null
+          name: string
+          packages: Json | null
+          seasonal: boolean | null
+          sizes: Json | null
+          slug: string
+          sort_order: number | null
+          updated_at: string | null
+          visible: boolean | null
+          weight: string | null
+        }
+        Insert: {
+          badge?: string | null
+          category: string
+          created_at?: string | null
+          description?: string | null
+          flavor_images?: Json | null
+          flavors?: Json
+          id?: string
+          image_url?: string | null
+          max_flavors?: Json | null
+          name: string
+          packages?: Json | null
+          seasonal?: boolean | null
+          sizes?: Json | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string | null
+          visible?: boolean | null
+          weight?: string | null
+        }
+        Update: {
+          badge?: string | null
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          flavor_images?: Json | null
+          flavors?: Json
+          id?: string
+          image_url?: string | null
+          max_flavors?: Json | null
+          name?: string
+          packages?: Json | null
+          seasonal?: boolean | null
+          sizes?: Json | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string | null
+          visible?: boolean | null
+          weight?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
