@@ -1,4 +1,4 @@
-import { useAdmin } from '@/store/admin';
+import { useAuth } from '@/hooks/useAuth';
 import { AdminLogin } from '@/components/AdminLogin';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Package, Calculator, BarChart3, LogOut } from 'lucide-react';
@@ -11,10 +11,18 @@ const navItems = [
 ];
 
 const AdminPage = () => {
-  const { isAuthenticated, logout } = useAdmin();
+  const { user, loading, signOut } = useAuth();
   const location = useLocation();
 
-  if (!isAuthenticated) return <AdminLogin />;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  if (!user) return <AdminLogin />;
 
   return (
     <div className="min-h-screen bg-muted flex">
@@ -43,7 +51,7 @@ const AdminPage = () => {
         </nav>
 
         <button
-          onClick={logout}
+          onClick={signOut}
           className="flex items-center gap-3 px-4 py-2.5 rounded-2xl font-body text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
         >
           <LogOut className="w-4 h-4" strokeWidth={1.5} />
@@ -55,7 +63,7 @@ const AdminPage = () => {
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-card border-b border-border">
         <div className="flex items-center justify-between px-4 py-3">
           <Link to="/" className="font-display text-lg text-primary">Mary Candy</Link>
-          <button onClick={logout} className="text-muted-foreground">
+          <button onClick={signOut} className="text-muted-foreground">
             <LogOut className="w-4 h-4" strokeWidth={1.5} />
           </button>
         </div>

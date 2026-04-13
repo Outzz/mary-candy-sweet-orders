@@ -1,18 +1,26 @@
 import { useState } from 'react';
-import { useAdmin } from '@/store/admin';
+import { useAuth } from '@/hooks/useAuth';
 import { Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function AdminLogin() {
-  const { login } = useAdmin();
+  const { signIn } = useAuth();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!login(password)) {
-      setError(true);
-      setTimeout(() => setError(false), 2000);
+    setLoading(true);
+    setError('');
+    
+    const { error: authError } = await signIn(email, password);
+    
+    if (authError) {
+      setError('Email ou senha incorretos');
+      setLoading(false);
+      setTimeout(() => setError(''), 3000);
     }
   };
 
@@ -33,26 +41,30 @@ export function AdminLogin() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="w-full px-4 py-3 rounded-2xl bg-muted border-0 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Senha de acesso"
+            placeholder="Senha"
             className="w-full px-4 py-3 rounded-2xl bg-muted border-0 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
           />
           {error && (
-            <p className="text-destructive font-body text-xs text-center">Senha incorreta</p>
+            <p className="text-destructive font-body text-xs text-center">{error}</p>
           )}
           <button
             type="submit"
-            className="w-full px-4 py-3 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:opacity-90 transition-opacity"
+            disabled={loading}
+            className="w-full px-4 py-3 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
           >
-            Entrar
+            {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
-
-        <p className="text-muted-foreground/50 font-body text-xs text-center mt-6">
-          Senha padrão: marycandy2024
-        </p>
       </motion.div>
     </div>
   );

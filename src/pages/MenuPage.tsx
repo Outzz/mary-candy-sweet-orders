@@ -7,26 +7,29 @@ import { MobileCartButton } from '@/components/MobileCartButton';
 import { CartSidebar } from '@/components/CartSidebar';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductDetailModal } from '@/components/ProductDetailModal';
-import { products, seasonalProducts, Product } from '@/lib/products';
+import { useRegularProducts, useSeasonalProducts } from '@/hooks/useProducts';
 import { isSeasonal } from '@/lib/seasonal';
 import { motion } from 'framer-motion';
+import type { Product } from '@/lib/products';
 
 const MenuPage = () => {
   const showSeasonal = isSeasonal();
-  const allProducts = products;
+  const { data: allProducts = [], isLoading: loadingRegular } = useRegularProducts();
+  const { data: seasonalProducts = [], isLoading: loadingSeasonal } = useSeasonalProducts();
   const location = useLocation();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     const openProductId = (location.state as any)?.openProductId;
-    if (openProductId) {
-      const all = [...products, ...seasonalProducts];
+    if (openProductId && (allProducts.length > 0 || seasonalProducts.length > 0)) {
+      const all = [...allProducts, ...seasonalProducts];
       const found = all.find((p) => p.id === openProductId);
       if (found) setSelectedProduct(found);
-      // Clear state so refresh doesn't re-open
       window.history.replaceState({}, '');
     }
-  }, [location.state]);
+  }, [location.state, allProducts, seasonalProducts]);
+
+  const isLoading = loadingRegular || loadingSeasonal;
 
   return (
     <div className="min-h-screen bg-background">
@@ -45,37 +48,14 @@ const MenuPage = () => {
           </p>
         </motion.div>
 
-        {/* All products grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
-          {allProducts.map((product, i) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              delay={i * 0.08}
-              onClick={() => setSelectedProduct(product)}
-            />
-          ))}
-        </div>
-
-        {/* Seasonal products */}
-        {showSeasonal && (
+        {isLoading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+          </div>
+        ) : (
           <>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center my-14"
-            >
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-body font-semibold mb-4">
-                🐣 Edição Limitada de Páscoa
-              </span>
-              <h2 className="text-3xl md:text-4xl font-display tracking-tight text-foreground">
-                Produtos <span className="text-primary italic">Sazonais</span>
-              </h2>
-            </motion.div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {seasonalProducts.map((product, i) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+              {allProducts.map((product, i) => (
                 <ProductCard
                   key={product.id}
                   product={product}
@@ -84,6 +64,35 @@ const MenuPage = () => {
                 />
               ))}
             </div>
+
+            {showSeasonal && seasonalProducts.length > 0 && (
+              <>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-center my-14"
+                >
+                  <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-body font-semibold mb-4">
+                    🐣 Edição Limitada de Páscoa
+                  </span>
+                  <h2 className="text-3xl md:text-4xl font-display tracking-tight text-foreground">
+                    Produtos <span className="text-primary italic">Sazonais</span>
+                  </h2>
+                </motion.div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                  {seasonalProducts.map((product, i) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      delay={i * 0.08}
+                      onClick={() => setSelectedProduct(product)}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
       </main>
