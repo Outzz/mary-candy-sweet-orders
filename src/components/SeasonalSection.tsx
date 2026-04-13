@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { isSeasonal } from '@/lib/seasonal';
-import { seasonalProducts } from '@/lib/products';
+import { useSeasonalProducts } from '@/hooks/useProducts';
 import { formatCurrency } from '@/lib/whatsapp';
 import { Link } from 'react-router-dom';
 import { Egg, Gift, Star } from 'lucide-react';
@@ -12,7 +12,9 @@ const seasonalIcons: Record<string, React.ReactNode> = {
 };
 
 export function SeasonalSection() {
-  if (!isSeasonal()) return null;
+  const { data: seasonalProducts = [] } = useSeasonalProducts();
+
+  if (!isSeasonal() || seasonalProducts.length === 0) return null;
 
   return (
     <section className="py-20 bg-secondary">

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { products } from '@/lib/products';
+import { useRegularProducts } from '@/hooks/useProducts';
 import { formatCurrency } from '@/lib/whatsapp';
 import { Link, useNavigate } from 'react-router-dom';
 import { Cake, Cherry, Cookie, IceCreamCone } from 'lucide-react';
@@ -12,8 +12,11 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 export function FeaturedProducts() {
+  const { data: products = [] } = useRegularProducts();
   const featured = products.slice(0, 4);
   const navigate = useNavigate();
+
+  if (featured.length === 0) return null;
 
   return (
     <section className="py-20 bg-background">
@@ -84,7 +87,6 @@ export function FeaturedProducts() {
           </Link>
         </div>
       </div>
-
     </section>
   );
 }
