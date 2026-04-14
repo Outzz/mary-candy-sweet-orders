@@ -2,6 +2,7 @@ import { X, Trash2, Plus, Minus } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import { formatCurrency, getWhatsAppUrl } from '@/lib/whatsapp';
 import { AnimatePresence, motion } from 'framer-motion';
+import { supabase } from '@/integrations/supabase/client';
 
 export function CartSidebar() {
   const { items, isOpen, setCartOpen, removeItem, updateQuantity, clearCart } = useCart();
@@ -121,6 +122,12 @@ export function CartSidebar() {
                   href={getWhatsAppUrl(items)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    supabase.from('orders').insert({
+                      items: items.map(i => ({ name: i.name, size: i.size, flavor: i.flavor, quantity: i.quantity, price: i.price })),
+                      total,
+                    }).then(() => {});
+                  }}
                   className="flex items-center justify-center w-full px-8 py-4 rounded-full bg-[#25D366] text-primary-foreground font-body font-semibold text-base hover:opacity-90 transition-opacity"
                 >
                   💬 Finalizar no WhatsApp
