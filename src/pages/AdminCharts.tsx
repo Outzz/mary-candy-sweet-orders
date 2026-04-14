@@ -1,16 +1,37 @@
-import { useAdmin } from '@/store/admin';
+import { useOrders } from '@/hooks/useOrders';
 import { formatCurrency } from '@/lib/whatsapp';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { useMemo } from 'react';
 
 export default function AdminCharts() {
-  const { monthlySales } = useAdmin();
+  const { data: orders = [] } = useOrders();
+
+  const monthlySales = useMemo(() => {
+    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    const now = new Date();
+    const last12: { month: string; revenue: number; orders: number }[] = [];
+
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const key = `${d.getFullYear()}-${d.getMonth()}`;
+      const matching = orders.filter((o) => {
+        const od = new Date(o.created_at);
+        return od.getFullYear() === d.getFullYear() && od.getMonth() === d.getMonth();
+      });
+      last12.push({
+        month: months[d.getMonth()],
+        revenue: matching.reduce((s, o) => s + Number(o.total), 0),
+        orders: matching.length,
+      });
+    }
+    return last12;
+  }, [orders]);
 
   return (
     <div>
       <h1 className="font-display text-3xl text-foreground mb-8">Gráficos de Vendas</h1>
 
       <div className="grid gap-6">
-        {/* Revenue chart */}
         <div className="bg-card rounded-3xl p-6 shadow-candy">
           <h2 className="font-display text-xl text-foreground mb-6">Receita Mensal</h2>
           <div className="h-72">
@@ -27,12 +48,7 @@ export default function AdminCharts() {
                 <YAxis tick={{ fontSize: 12, fontFamily: 'Outfit' }} stroke="hsl(20, 15%, 50%)" tickFormatter={(v) => `R$${v}`} />
                 <Tooltip
                   formatter={(value: number) => [formatCurrency(value), 'Receita']}
-                  contentStyle={{
-                    borderRadius: '16px',
-                    border: 'none',
-                    boxShadow: '0 8px 30px rgb(0 0 0 / 0.08)',
-                    fontFamily: 'Outfit',
-                  }}
+                  contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 8px 30px rgb(0 0 0 / 0.08)', fontFamily: 'Outfit' }}
                 />
                 <Area type="monotone" dataKey="revenue" stroke="hsl(340, 70%, 60%)" fill="url(#colorRevenue)" strokeWidth={2} />
               </AreaChart>
@@ -40,7 +56,6 @@ export default function AdminCharts() {
           </div>
         </div>
 
-        {/* Orders chart */}
         <div className="bg-card rounded-3xl p-6 shadow-candy">
           <h2 className="font-display text-xl text-foreground mb-6">Pedidos por Mês</h2>
           <div className="h-72">
@@ -51,12 +66,7 @@ export default function AdminCharts() {
                 <YAxis tick={{ fontSize: 12, fontFamily: 'Outfit' }} stroke="hsl(20, 15%, 50%)" />
                 <Tooltip
                   formatter={(value: number) => [value, 'Pedidos']}
-                  contentStyle={{
-                    borderRadius: '16px',
-                    border: 'none',
-                    boxShadow: '0 8px 30px rgb(0 0 0 / 0.08)',
-                    fontFamily: 'Outfit',
-                  }}
+                  contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 8px 30px rgb(0 0 0 / 0.08)', fontFamily: 'Outfit' }}
                 />
                 <Bar dataKey="orders" fill="hsl(340, 82%, 92%)" radius={[8, 8, 0, 0]} />
               </BarChart>
