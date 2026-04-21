@@ -14,7 +14,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
   'maes-caixinha': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
   'maes-coracao': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
   'maes-mini': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
-];
+};
 
 interface ProductCardProps {
   product: Product;
