@@ -74,7 +74,7 @@ const MenuPage = () => {
                   className="text-center my-14"
                 >
                   <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-body font-semibold mb-4">
-                    🐣 Edição Limitada de Páscoa
+                    ✨ Edição Limitada
                   </span>
                   <h2 className="text-3xl md:text-4xl font-display tracking-tight text-foreground">
                     Produtos <span className="text-primary italic">Sazonais</span>
