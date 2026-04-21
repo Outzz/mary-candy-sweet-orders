@@ -3,12 +3,15 @@ import { isSeasonal } from '@/lib/seasonal';
 import { useSeasonalProducts } from '@/hooks/useProducts';
 import { formatCurrency } from '@/lib/whatsapp';
 import { Link } from 'react-router-dom';
-import { Egg, Gift, Star } from 'lucide-react';
+import { Egg, Gift, Star, Heart } from 'lucide-react';
 
 const seasonalIcons: Record<string, React.ReactNode> = {
   'ovo-tradicional': <Egg className="w-10 h-10 text-primary" strokeWidth={1.5} />,
   'ovo-especial': <Star className="w-10 h-10 text-primary" strokeWidth={1.5} />,
   'kit-degustacao': <Gift className="w-10 h-10 text-primary" strokeWidth={1.5} />,
+  'maes-caixinha': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
+  'maes-coracao': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
+  'maes-mini': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
 };
 
 export function SeasonalSection() {
