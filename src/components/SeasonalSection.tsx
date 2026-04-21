@@ -29,13 +29,13 @@ export function SeasonalSection() {
           className="text-center mb-14"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-body font-semibold mb-4">
-            🐣 Edição Limitada de Páscoa
+            ✨ Edição Limitada
           </span>
           <h2 className="text-3xl md:text-4xl font-display tracking-tight text-foreground">
             Produtos da <span className="text-primary italic">Temporada</span>
           </h2>
           <p className="mt-3 text-muted-foreground font-body text-lg">
-            Disponíveis por tempo limitado — de 10 de março a 10 de abril
+            Disponíveis por tempo limitado
           </p>
         </motion.div>
 
