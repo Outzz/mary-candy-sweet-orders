@@ -54,8 +54,10 @@ export function ProductDetailModal({ product, isOpen, onClose }: ProductDetailMo
               <X className="w-5 h-5 text-foreground" />
             </button>
 
-            {(product.category === 'brigadeiro' || product.category === 'maes-caixinha') ? (
+            {product.category === 'brigadeiro' ? (
               <BrigadeiroContent product={product} onClose={onClose} />
+            ) : product.category === 'maes-caixinha' ? (
+              <MultiFlavorContent product={product} onClose={onClose} />
             ) : (
               <RegularContent product={product} onClose={onClose} />
             )}
