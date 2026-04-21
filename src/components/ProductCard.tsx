@@ -1,4 +1,4 @@
-import { Cake, Cherry, IceCreamCone, Cookie, Egg, Gift, Star as StarIcon } from 'lucide-react';
+import { Cake, Cherry, IceCreamCone, Cookie, Egg, Gift, Star as StarIcon, Heart } from 'lucide-react';
 import { Product } from '@/lib/products';
 import { formatCurrency } from '@/lib/whatsapp';
 import { motion } from 'framer-motion';
@@ -11,6 +11,9 @@ const categoryIcons: Record<string, React.ReactNode> = {
   'ovo-tradicional': <Egg className="w-10 h-10 text-primary" strokeWidth={1.5} />,
   'ovo-especial': <StarIcon className="w-10 h-10 text-primary" strokeWidth={1.5} />,
   'kit-degustacao': <Gift className="w-10 h-10 text-primary" strokeWidth={1.5} />,
+  'maes-caixinha': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
+  'maes-coracao': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
+  'maes-mini': <Heart className="w-10 h-10 text-primary" strokeWidth={1.5} />,
 };
 
 interface ProductCardProps {

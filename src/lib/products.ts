@@ -7,7 +7,7 @@ export interface Product {
   id: string;
   name: string;
   description: string;
-  category: 'travessa' | 'mousse-tradicional' | 'mousse-trufado' | 'brigadeiro' | 'ovo-tradicional' | 'ovo-especial' | 'kit-degustacao';
+  category: 'travessa' | 'mousse-tradicional' | 'mousse-trufado' | 'brigadeiro' | 'ovo-tradicional' | 'ovo-especial' | 'kit-degustacao' | 'maes-caixinha' | 'maes-coracao' | 'maes-mini';
   sizes?: ProductSize[];
   flavors: string[];
   packages?: ProductSize[];
