@@ -54,8 +54,10 @@ export function ProductDetailModal({ product, isOpen, onClose }: ProductDetailMo
               <X className="w-5 h-5 text-foreground" />
             </button>
 
-            {(product.category === 'brigadeiro' || product.category === 'maes-caixinha') ? (
+            {product.category === 'brigadeiro' ? (
               <BrigadeiroContent product={product} onClose={onClose} />
+            ) : product.category === 'maes-caixinha' ? (
+              <MultiFlavorContent product={product} onClose={onClose} />
             ) : (
               <RegularContent product={product} onClose={onClose} />
             )}
@@ -379,6 +381,130 @@ function BrigadeiroContent({ product, onClose }: { product: Product; onClose: ()
         >
           <ShoppingBag className="w-4 h-4" strokeWidth={1.5} />
           {remaining === 0 ? 'Adicionar' : `Faltam ${remaining}`}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function MultiFlavorContent({ product, onClose }: { product: Product; onClose: () => void }) {
+  const { addItem, setCartOpen } = useCart();
+  const pkg = product.packages?.[0] || product.sizes?.[0] || null;
+  const maxFlavors = pkg && product.maxFlavors ? product.maxFlavors[pkg.label] || 2 : 2;
+  const [selected, setSelected] = useState<string[]>([]);
+  const [quantity, setQuantity] = useState(1);
+
+  const toggleFlavor = (flavor: string) => {
+    setSelected((prev) => {
+      if (prev.includes(flavor)) return prev.filter((f) => f !== flavor);
+      if (prev.length >= maxFlavors) return prev;
+      return [...prev, flavor];
+    });
+  };
+
+  const canAdd = pkg && selected.length > 0 && selected.length <= maxFlavors;
+
+  const handleAdd = () => {
+    if (!pkg || !canAdd) return;
+    addItem({
+      productId: product.id,
+      name: product.name,
+      size: pkg.label,
+      flavor: selected.join(' + '),
+      quantity,
+      price: pkg.price,
+    });
+    setCartOpen(true);
+    onClose();
+  };
+
+  return (
+    <div className="p-6 pt-8">
+      {product.image ? (
+        <div className="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-6">
+          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+        </div>
+      ) : (
+        <div className="w-32 h-32 rounded-3xl bg-secondary flex items-center justify-center mx-auto mb-6">
+          <Cookie className="w-16 h-16 text-primary" strokeWidth={1.5} />
+        </div>
+      )}
+
+      {product.badge && (
+        <div className="text-center mb-3">
+          <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-body font-semibold">
+            {product.badge}
+          </span>
+        </div>
+      )}
+
+      <h2 className="font-display text-3xl text-foreground text-center mb-2">{product.name}</h2>
+      <p className="text-muted-foreground font-body text-sm text-center mb-2">{product.description}</p>
+      {product.weight && (
+        <p className="text-muted-foreground/60 font-body text-xs text-center mb-6">Peso: {product.weight}</p>
+      )}
+
+      <div className="mb-5">
+        <div className="flex items-center justify-between mb-2">
+          <label className="font-body text-xs font-semibold text-foreground/70">
+            Escolha até {maxFlavors} sabores
+          </label>
+          <span className="font-body text-xs text-muted-foreground tabular-nums">
+            {selected.length}/{maxFlavors}
+          </span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {product.flavors.map((flavor) => {
+            const isSelected = selected.includes(flavor);
+            const isDisabled = !isSelected && selected.length >= maxFlavors;
+            return (
+              <button
+                key={flavor}
+                onClick={() => toggleFlavor(flavor)}
+                disabled={isDisabled}
+                className={`px-4 py-2 rounded-2xl font-body text-sm transition-all ${
+                  isSelected
+                    ? 'bg-primary text-primary-foreground shadow-candy'
+                    : 'bg-secondary text-foreground hover:bg-accent disabled:opacity-40 disabled:cursor-not-allowed'
+                }`}
+              >
+                {flavor}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <label className="font-body text-xs font-semibold text-foreground/70 mb-2 block">Quantidade</label>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            className="w-11 h-11 rounded-2xl bg-secondary flex items-center justify-center hover:bg-accent transition-colors"
+          >
+            <Minus className="w-4 h-4" />
+          </button>
+          <span className="font-body font-semibold text-xl tabular-nums w-8 text-center">{quantity}</span>
+          <button
+            onClick={() => setQuantity(quantity + 1)}
+            className="w-11 h-11 rounded-2xl bg-secondary flex items-center justify-center hover:bg-accent transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between pt-5 border-t border-border">
+        <span className="font-display text-3xl text-primary">
+          {pkg ? formatCurrency(pkg.price * quantity) : 'R$ 0,00'}
+        </span>
+        <button
+          onClick={handleAdd}
+          disabled={!canAdd}
+          className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-primary-foreground font-body font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          <ShoppingBag className="w-4 h-4" strokeWidth={1.5} />
+          {selected.length === 0 ? 'Escolha os sabores' : 'Adicionar'}
         </button>
       </div>
     </div>
