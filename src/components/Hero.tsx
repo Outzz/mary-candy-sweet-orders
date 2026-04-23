@@ -21,7 +21,7 @@ export function Hero() {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-secondary text-primary text-sm font-body font-medium mb-6">
-            🍬 Doces Artesanais
+            Doces Artesanais
           </span>
         </motion.div>
 
