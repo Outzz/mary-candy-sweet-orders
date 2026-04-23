@@ -29,7 +29,7 @@ export function SeasonalSection() {
           className="text-center mb-14"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-body font-semibold mb-4">
-            ✨ Edição Limitada
+            Edição Limitada
           </span>
           <h2 className="text-3xl md:text-4xl font-display tracking-tight text-foreground">
             Produtos da <span className="text-primary italic">Temporada</span>
