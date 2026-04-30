@@ -10,6 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard.tsx";
 import AdminProducts from "./pages/AdminProducts.tsx";
 import AdminCalculator from "./pages/AdminCalculator.tsx";
 import AdminCharts from "./pages/AdminCharts.tsx";
+import AdminFeedbacks from "./pages/AdminFeedbacks.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="produtos" element={<AdminProducts />} />
             <Route path="calculadora" element={<AdminCalculator />} />
             <Route path="graficos" element={<AdminCharts />} />
+            <Route path="feedbacks" element={<AdminFeedbacks />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

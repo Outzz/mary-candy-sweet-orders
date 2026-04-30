@@ -1,13 +1,14 @@
 import { useAuth } from '@/hooks/useAuth';
 import { AdminLogin } from '@/components/AdminLogin';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package, Calculator, BarChart3, LogOut } from 'lucide-react';
+import { LayoutDashboard, Package, Calculator, BarChart3, MessageCircle, LogOut } from 'lucide-react';
 
 const navItems = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { to: '/admin/produtos', label: 'Produtos', icon: Package },
   { to: '/admin/calculadora', label: 'Calculadora', icon: Calculator },
   { to: '/admin/graficos', label: 'Gráficos', icon: BarChart3 },
+  { to: '/admin/feedbacks', label: 'Feedbacks', icon: MessageCircle },
 ];
 
 const AdminPage = () => {
