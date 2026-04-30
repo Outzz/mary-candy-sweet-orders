@@ -4,6 +4,7 @@ import { SeasonalSection } from '@/components/SeasonalSection';
 import { HowItWorks } from '@/components/HowItWorks';
 import { WhyMaryCandy } from '@/components/WhyMaryCandy';
 import { Testimonials } from '@/components/Testimonials';
+import { FeedbackForm } from '@/components/FeedbackForm';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
@@ -21,6 +22,7 @@ const Index = () => {
         <HowItWorks />
         <WhyMaryCandy />
         <Testimonials />
+        <FeedbackForm />
       </main>
       <Footer />
       <WhatsAppButton />
