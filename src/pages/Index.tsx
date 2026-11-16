@@ -5,6 +5,7 @@ import { HowItWorks } from '@/components/HowItWorks';
 import { WhyMaryCandy } from '@/components/WhyMaryCandy';
 import { Testimonials } from '@/components/Testimonials';
 import { FeedbackForm } from '@/components/FeedbackForm';
+import { ChristmasSection, ChristmasDivider } from '@/components/ChristmasSection';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
@@ -17,10 +18,13 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <ChristmasSection />
         <FeaturedProducts />
         <SeasonalSection />
+        <ChristmasDivider />
         <HowItWorks />
         <WhyMaryCandy />
+        <ChristmasDivider />
         <Testimonials />
         <FeedbackForm />
       </main>

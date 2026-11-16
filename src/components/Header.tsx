@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import { ShoppingBag, Menu, X, Sparkles } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,10 +18,11 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-candy-gold/30">
       <div className="container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-2xl font-display text-primary tracking-tight">Mary Candy</span>
+          <Sparkles className="w-4 h-4 text-candy-gold" aria-hidden />
         </Link>
 
         {/* Desktop nav */}

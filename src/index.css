@@ -111,6 +111,9 @@
   .shadow-candy-float {
     box-shadow: var(--shadow-float);
   }
+  .gradient-xmas {
+    background: linear-gradient(180deg, hsl(340 82% 96%) 0%, hsl(36 60% 97%) 60%, hsl(0 0% 100%) 100%);
+  }
   .gradient-hero {
     background: var(--gradient-hero);
   }
