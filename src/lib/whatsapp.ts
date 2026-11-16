@@ -33,9 +33,9 @@ export function buildWhatsAppMessage(items: CartItem[]): string {
 
 export function getWhatsAppUrl(items: CartItem[]): string {
   const message = buildWhatsAppMessage(items);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
 }
 
 export function getWhatsAppDirectUrl(): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá Mary Candy! Gostaria de saber mais sobre os doces.')}`;
+  return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent('Olá Mary Candy! Gostaria de saber mais sobre os doces.')}`;
 }
