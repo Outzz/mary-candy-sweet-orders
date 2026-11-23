@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import type { Product, ProductSize } from '@/lib/products';
+import { christmasProducts } from '@/lib/christmas-products';
+
+const christmasProductIds = new Set(christmasProducts.map((product) => product.id));
 
 interface DbProduct {
   id: string;

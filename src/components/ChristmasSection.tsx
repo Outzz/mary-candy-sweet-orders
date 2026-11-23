@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, Star, ShoppingBag, Check } from 'lucide-react';
 import { formatCurrency } from '@/lib/whatsapp';
 import { useCart } from '@/store/cart';
-import { christmasProducts } from '@/lib/christmas-products';
+import { useChristmasProducts } from '@/hooks/useProducts';
 import type { Product } from '@/lib/products';
 import { getServings } from '@/lib/servings';
 import { Button } from '@/components/ui/button';

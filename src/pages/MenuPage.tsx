@@ -7,10 +7,9 @@ import { MobileCartButton } from '@/components/MobileCartButton';
 import { CartSidebar } from '@/components/CartSidebar';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductDetailModal } from '@/components/ProductDetailModal';
-import { useRegularProducts, useSeasonalProducts } from '@/hooks/useProducts';
+import { useChristmasProducts, useRegularProducts, useSeasonalProducts } from '@/hooks/useProducts';
 import { isSeasonal } from '@/lib/seasonal';
 import { motion } from 'framer-motion';
-import { christmasProducts } from '@/lib/christmas-products';
 import type { Product } from '@/lib/products';
 
 const MenuPage = () => {
