@@ -3,34 +3,11 @@ import { motion } from 'framer-motion';
 import { Sparkles, Star, ShoppingBag, Check } from 'lucide-react';
 import { formatCurrency } from '@/lib/whatsapp';
 import { useCart } from '@/store/cart';
-import uva from '@/assets/natal-uva.jpg.asset.json';
-import morango from '@/assets/natal-morango.jpg.asset.json';
-import cravejado from '@/assets/natal-cravejado.jpg.asset.json';
-import limao from '@/assets/natal-mousse-limao.jpg.asset.json';
-import maracuja from '@/assets/natal-mousse-maracuja.jpg.asset.json';
-import sensacao from '@/assets/natal-mousse-sensacao.jpg.asset.json';
-
-interface XmasProduct {
-  id: string;
-  name: string;
-  description: string;
-  p: number;
-  m: number;
-  image: string;
-  flavors?: { name: string; image: string }[];
-}
-
-const xmasProducts: XmasProduct[] = [
-  { id: 'natal-travessa-morango', name: 'Travessa surpresa de morango', p: 49, m: 99, image: morango.url,
-    description: 'Camadas de morangos fatiados, camadas de brigadeiro de ninho cremoso e por cima uma deliciosa ganache de chocolate.' },
-  { id: 'natal-travessa-uva', name: 'Travessa surpresa de uva', p: 49, m: 99, image: uva.url,
-    description: 'Camadas de uvas verdes, camadas de brigadeiro de ninho cremoso e por cima deliciosa ganache de chocolate ao leite.' },
-  { id: 'natal-morango-cravejado', name: 'Travessa de morango cravejado', p: 55, m: 110, image: cravejado.url,
-    description: 'Camadas de morangos fatiados, brigadeiro cremoso de ninho e por cima a famosa casquinha cravejada, feita com chocolate branco e pedaços de caramelo.' },
-  { id: 'natal-mousse-trufado', name: 'Mousses de fruta, trufados', p: 40, m: 80, image: limao.url,
-    description: 'Mousses cremosos feitos da fruta, com deliciosa ganache de chocolate ao leite, finalizados com uma decoração que encanta.',
-    flavors: [ { name: 'Limão', image: limao.url }, { name: 'Maracujá', image: maracuja.url }, { name: 'Sensação', image: sensacao.url } ] },
-];
+import { christmasProducts } from '@/lib/christmas-products';
+import type { Product } from '@/lib/products';
+import { getServings } from '@/lib/servings';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 export function ChristmasDivider() {
   return (
@@ -46,16 +23,17 @@ export function ChristmasDivider() {
   );
 }
 
-function XmasCard({ product, index }: { product: XmasProduct; index: number }) {
+function XmasCard({ product, index }: { product: Product; index: number }) {
   const addItem = useCart((s) => s.addItem);
   const setCartOpen = useCart((s) => s.setCartOpen);
   const [size, setSize] = useState<'P' | 'M'>('P');
-  const [flavor, setFlavor] = useState(product.flavors?.[0]);
+  const [flavor, setFlavor] = useState(product.flavors[0] || '');
   const [added, setAdded] = useState(false);
-  const price = size === 'P' ? product.p : product.m;
+  const price = product.sizes?.find(option => option.label === size)?.price || 0;
+  const servings = getServings(product, size);
 
   const add = () => {
-    addItem({ productId: product.id, name: product.name, size, flavor: flavor?.name, quantity: 1, price });
+    addItem({ productId: product.id, name: product.name, size, flavor: flavor || undefined, quantity: 1, price });
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
     setCartOpen(true);
@@ -70,20 +48,20 @@ function XmasCard({ product, index }: { product: XmasProduct; index: number }) {
       className="flex flex-col bg-card rounded-3xl p-4 shadow-candy hover:shadow-candy-hover transition-all duration-300 border border-candy-gold/20"
     >
       <div className="rounded-2xl overflow-hidden bg-secondary aspect-square mb-4">
-        <img src={flavor?.image || product.image} alt={`${product.name}${flavor ? ` – ${flavor.name}` : ''}`} loading="lazy" className="w-full h-full object-cover" />
+        <img src={product.flavorImages?.[flavor] || product.image} alt={`${product.name}${flavor ? ` – ${flavor}` : ''}`} loading="lazy" className="w-full h-full object-cover" />
       </div>
-      <h3 className="font-display text-xl text-foreground mb-2">{product.name}</h3>
+      <h3 className="font-display text-xl text-foreground mb-2"><Link to="/cardapio" state={{ openProductId: product.id }} className="hover:text-primary">{product.name}</Link></h3>
       <p className="text-sm text-muted-foreground font-body mb-4 flex-1">{product.description}</p>
 
-      {product.flavors && (
+      {product.flavors.length > 0 && (
         <div className="mb-3">
           <div className="text-xs font-body font-semibold text-foreground/70 mb-2">Sabor</div>
           <div className="flex flex-wrap gap-2">
             {product.flavors.map((f) => (
-              <button key={f.name} onClick={() => setFlavor(f)}
-                className={`px-3 py-2 rounded-full text-sm font-body transition-colors ${flavor?.name === f.name ? 'bg-primary text-primary-foreground' : 'bg-secondary text-foreground hover:bg-accent'}`}>
-                {f.name}
-              </button>
+              <Button key={f} onClick={() => setFlavor(f)} variant={flavor === f ? "default" : "secondary"}
+                className={`px-3 py-2 rounded-full text-sm font-body transition-colors ${flavor === f ? 'bg-primary text-primary-foreground' : 'bg-secondary text-foreground hover:bg-accent'}`}>
+                {f}
+              </Button>
             ))}
           </div>
         </div>
@@ -92,18 +70,20 @@ function XmasCard({ product, index }: { product: XmasProduct; index: number }) {
       <div className="text-xs font-body font-semibold text-foreground/70 mb-2">Tamanho</div>
       <div className="flex gap-2 mb-4">
         {(['P', 'M'] as const).map((s) => (
-          <button key={s} onClick={() => setSize(s)}
-            className={`flex-1 rounded-2xl py-2 text-center transition-colors ${size === s ? 'bg-primary text-primary-foreground' : 'bg-secondary text-foreground hover:bg-accent'}`}>
+          <Button key={s} onClick={() => setSize(s)} variant={size === s ? "default" : "secondary"}
+            className={`flex-1 h-auto flex-col gap-0 rounded-2xl py-2 text-center transition-colors ${size === s ? 'bg-primary text-primary-foreground' : 'bg-secondary text-foreground hover:bg-accent'}`}>
             <div className="text-xs font-body">{s}</div>
-            <div className="font-display text-lg">{formatCurrency(s === 'P' ? product.p : product.m)}</div>
-          </button>
+            <div className="font-display text-lg">{formatCurrency(product.sizes?.find(option => option.label === s)?.price || 0)}</div>
+          </Button>
         ))}
       </div>
 
-      <button onClick={add}
-        className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gradient-to-r from-primary to-candy-gold text-primary-foreground font-body font-semibold hover:opacity-90 transition-opacity">
+      {servings && <p className="text-sm font-body text-muted-foreground mb-3">Serve de {servings[0]} a {servings[1]} pessoas</p>}
+      <Button asChild variant="link" className="mb-2"><Link to="/cardapio" state={{ openProductId: product.id }}>Ver detalhes</Link></Button>
+      <Button onClick={add}
+        className="inline-flex items-center justify-center gap-2 w-full h-auto py-3.5 rounded-full bg-gradient-to-r from-primary to-candy-gold text-primary-foreground font-body font-semibold hover:opacity-90 transition-opacity">
         {added ? <><Check className="w-4 h-4" /> Adicionado!</> : <><ShoppingBag className="w-4 h-4" /> Adicionar ao pedido</>}
-      </button>
+      </Button>
     </motion.article>
   );
 }
@@ -126,7 +106,7 @@ export function ChristmasSection() {
           <p className="mt-3 text-sm font-body text-primary">Escolha o tamanho, adicione ao pedido e finalize pelo WhatsApp.</p>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {xmasProducts.map((p, i) => <XmasCard key={p.id} product={p} index={i} />)}
+          {christmasProducts.map((p, i) => <XmasCard key={p.id} product={p} index={i} />)}
         </div>
       </div>
     </section>

@@ -10,6 +10,7 @@ import { ProductDetailModal } from '@/components/ProductDetailModal';
 import { useRegularProducts, useSeasonalProducts } from '@/hooks/useProducts';
 import { isSeasonal } from '@/lib/seasonal';
 import { motion } from 'framer-motion';
+import { christmasProducts } from '@/lib/christmas-products';
 import type { Product } from '@/lib/products';
 
 const MenuPage = () => {
@@ -21,8 +22,8 @@ const MenuPage = () => {
 
   useEffect(() => {
     const openProductId = (location.state as any)?.openProductId;
-    if (openProductId && (allProducts.length > 0 || seasonalProducts.length > 0)) {
-      const all = [...allProducts, ...seasonalProducts];
+    if (openProductId) {
+      const all = [...christmasProducts, ...allProducts, ...seasonalProducts];
       const found = all.find((p) => p.id === openProductId);
       if (found) setSelectedProduct(found);
       window.history.replaceState({}, '');
@@ -54,6 +55,14 @@ const MenuPage = () => {
           </div>
         ) : (
           <>
+            <section aria-labelledby="christmas-menu-title" className="mb-12">
+              <h2 id="christmas-menu-title" className="font-display text-3xl text-foreground text-center mb-6">Especial de <span className="text-primary italic">Natal</span></h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                {christmasProducts.map((product, i) => (
+                  <ProductCard key={product.id} product={product} delay={i * 0.08} onClick={() => setSelectedProduct(product)} />
+                ))}
+              </div>
+            </section>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
               {allProducts.map((product, i) => (
                 <ProductCard

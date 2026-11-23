@@ -1,3 +1,4 @@
+import { getServings } from '@/lib/servings';
 import { useState, useMemo } from 'react';
 import { Plus, Minus, ShoppingBag, X, Cake, Cherry, IceCreamCone, Cookie, Egg, Gift, Star as StarIcon } from 'lucide-react';
 import { Product, ProductSize, getPackageQuantity } from '@/lib/products';
@@ -92,18 +93,19 @@ function RegularContent({ product, onClose }: { product: Product; onClose: () =>
   };
 
   const currentImage = product.flavorImages?.[selectedFlavor] || product.image;
+  const servings = getServings(product, selectedSize?.label);
 
   return (
     <div className="p-6 pt-8">
       {/* Hero area */}
       {currentImage ? (
-        <div className="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-6">
+        <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden mx-auto mb-6">
           <AnimatePresence mode="wait">
             <motion.img
               key={currentImage}
               src={currentImage}
-              alt={product.name}
-              className="w-full h-full object-cover"
+              alt={`${product.name}${selectedFlavor ? ` – ${selectedFlavor}` : ''}`}
+              className="w-full h-full object-contain"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -154,6 +156,8 @@ function RegularContent({ product, onClose }: { product: Product; onClose: () =>
           </div>
         </div>
       )}
+
+      {servings && <p className="font-body text-sm text-primary mb-5">Serve de {servings[0]} a {servings[1]} pessoas</p>}
 
       {/* Flavor selector */}
       {product.flavors.length > 1 && (
@@ -278,7 +282,7 @@ function BrigadeiroContent({ product, onClose }: { product: Product; onClose: ()
     <div className="p-6 pt-8">
       {/* Hero */}
       {product.image ? (
-        <div className="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-6">
+        <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden mx-auto mb-6">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
         </div>
       ) : (
@@ -421,7 +425,7 @@ function MultiFlavorContent({ product, onClose }: { product: Product; onClose: (
   return (
     <div className="p-6 pt-8">
       {product.image ? (
-        <div className="w-40 h-40 rounded-3xl overflow-hidden mx-auto mb-6">
+        <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden mx-auto mb-6">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
         </div>
       ) : (

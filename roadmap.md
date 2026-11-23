@@ -1,0 +1,3 @@
+- [x] Corrigir fotos em celulares e hospedagens externas.
+- [x] Incluir Natal no cardápio com detalhes, rendimento e fotos por sabor.
+- [x] Adicionar logo PNG e verificar celular e computador.
