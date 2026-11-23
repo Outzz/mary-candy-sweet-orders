@@ -1,7 +1,7 @@
 import logo from '@/assets/mary-candy-logo.png.asset.json';
 import { assetUrl } from '@/lib/asset-url';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X, Sparkles } from 'lucide-react';
+import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,11 +21,13 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-candy-gold/30">
-      <div className="container flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={assetUrl(logo.url)} alt="Logo Mary Candy" className="w-11 h-11 object-contain rounded-full" />
-          <span className="text-2xl font-display text-primary tracking-tight">Mary Candy</span>
-          <Sparkles className="w-4 h-4 text-candy-gold" aria-hidden />
+      <div className="container flex items-center justify-between h-20">
+        <Link to="/" className="flex items-center" aria-label="Mary Candy - Início">
+          <img
+            src={assetUrl(logo.url)}
+            alt="Logo Mary Candy"
+            className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-cover rounded-full ring-1 ring-candy-gold/25 shadow-sm"
+          />
         </Link>
 
         {/* Desktop nav */}
