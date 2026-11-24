@@ -89,6 +89,8 @@ function XmasCard({ product, index }: { product: Product; index: number }) {
 }
 
 export function ChristmasSection() {
+  const { data: christmasProducts = [] } = useChristmasProducts();
+  if (christmasProducts.length === 0) return null;
   return (
     <section id="natal" className="relative py-20 overflow-hidden gradient-xmas">
       <Sparkles className="absolute top-8 left-6 w-6 h-6 text-candy-gold/60 animate-float-candy" aria-hidden />

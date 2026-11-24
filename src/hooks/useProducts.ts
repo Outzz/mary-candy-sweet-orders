@@ -65,7 +65,7 @@ export function useProducts() {
 export function useRegularProducts() {
   const { data, ...rest } = useProducts();
   return {
-    data: data?.filter((p) => !p.seasonal),
+    data: data?.filter((p) => !p.seasonal && p.badge !== 'Natal'),
     ...rest,
   };
 }
@@ -73,7 +73,15 @@ export function useRegularProducts() {
 export function useSeasonalProducts() {
   const { data, ...rest } = useProducts();
   return {
-    data: data?.filter((p) => p.seasonal),
+    data: data?.filter((p) => p.seasonal && p.badge !== 'Natal'),
+    ...rest,
+  };
+}
+
+export function useChristmasProducts() {
+  const { data, ...rest } = useProducts();
+  return {
+    data: data?.filter((p) => christmasProductIds.has(p.id) || p.badge === 'Natal'),
     ...rest,
   };
 }

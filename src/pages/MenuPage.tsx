@@ -16,6 +16,7 @@ const MenuPage = () => {
   const showSeasonal = isSeasonal();
   const { data: allProducts = [], isLoading: loadingRegular } = useRegularProducts();
   const { data: seasonalProducts = [], isLoading: loadingSeasonal } = useSeasonalProducts();
+  const { data: christmasProducts = [] } = useChristmasProducts();
   const location = useLocation();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -27,7 +28,7 @@ const MenuPage = () => {
       if (found) setSelectedProduct(found);
       window.history.replaceState({}, '');
     }
-  }, [location.state, allProducts, seasonalProducts]);
+  }, [location.state, allProducts, seasonalProducts, christmasProducts]);
 
   const isLoading = loadingRegular || loadingSeasonal;
 
@@ -54,14 +55,14 @@ const MenuPage = () => {
           </div>
         ) : (
           <>
-            <section aria-labelledby="christmas-menu-title" className="mb-12">
+            {christmasProducts.length > 0 && <section aria-labelledby="christmas-menu-title" className="mb-12">
               <h2 id="christmas-menu-title" className="font-display text-3xl text-foreground text-center mb-6">Especial de <span className="text-primary italic">Natal</span></h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                 {christmasProducts.map((product, i) => (
                   <ProductCard key={product.id} product={product} delay={i * 0.08} onClick={() => setSelectedProduct(product)} />
                 ))}
               </div>
-            </section>
+            </section>}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
               {allProducts.map((product, i) => (
                 <ProductCard
