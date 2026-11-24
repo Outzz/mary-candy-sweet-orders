@@ -17,7 +17,7 @@ export function Hero() {
       </div>
 
       <div className="container relative z-10 py-20 md:py-32 flex flex-col items-center text-center">
-        <img src={assetUrl(logo.url)} alt="Logo Mary Candy" className="w-36 h-36 md:w-44 md:h-44 object-contain rounded-full mb-6" />
+        <img src={assetUrl(logo.url)} alt="Logo Mary Candy" className="h-36 w-auto md:h-44 object-contain rounded-full mb-6" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -26,7 +26,7 @@ export function Header() {
           <img
             src={assetUrl(logo.url)}
             alt="Logo Mary Candy"
-            className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-cover rounded-full ring-1 ring-candy-gold/25 shadow-sm"
+            className="h-16 w-auto sm:h-[72px] object-contain"
           />
         </Link>
 
